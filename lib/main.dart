@@ -1,6 +1,7 @@
 import 'package:bd_sales/Model/model_json.dart';
+import 'package:bd_sales/Route%20Page/route_page.dart';
 import 'package:bd_sales/import_firebase.dart';
-import 'package:bd_sales/screen/admin_page.dart';
+import 'package:bd_sales/Product%20List/admin_page.dart';
 import 'package:bd_sales/screen/home_page.dart';
 import 'package:bd_sales/screen/sign_in.dart';
 import 'package:bd_sales/screen/sign_up.dart';
@@ -26,7 +27,7 @@ class myApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: EasyLoading.init(),
-      home: HomePage(),
+      home: RoutePage(),
     );
 
   }

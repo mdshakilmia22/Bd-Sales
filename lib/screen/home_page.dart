@@ -1,20 +1,36 @@
-
-import 'package:bd_sales/Model/Provider/product_provider.dart';
+import 'package:bd_sales/Category%20Product/biscuits_category_list.dart';
+import 'package:bd_sales/Category%20Product/flash_category_list.dart';
+import 'package:bd_sales/Category%20Product/fresh_vagitable_category.dart';
+import 'package:bd_sales/Category%20Product/fruits_category_list.dart';
+import 'package:bd_sales/Category%20Product/nudus_category_list.dart';
+import 'package:bd_sales/Category%20Product/oil_Category_List.dart';
+import 'package:bd_sales/Category%20Product/sugar_category_list.dart';
+import 'package:bd_sales/Model/biscut_model.dart';
 import 'package:bd_sales/Model/colors_model.dart';
+import 'package:bd_sales/Model/flash_model.dart';
+import 'package:bd_sales/Model/fruits_model.dart';
 import 'package:bd_sales/Model/model_json.dart';
-import 'package:bd_sales/screen/admin_page.dart';
+import 'package:bd_sales/Model/nudus_model.dart';
+import 'package:bd_sales/Model/oil_model.dart';
+import 'package:bd_sales/Model/sugar.dart';
+import 'package:bd_sales/Product%20List/admin_page.dart';
+import 'package:bd_sales/Product%20List/biscut_fileld.dart';
+import 'package:bd_sales/Product%20List/fruits_page.dart';
+import 'package:bd_sales/Product%20List/nudus_model.dart';
+import 'package:bd_sales/Product%20List/oil_page.dart';
+import 'package:bd_sales/Product%20List/sugar_page.dart';
 import 'package:bd_sales/screen/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconly/iconly.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../Model/product details/vagitable.dart';
+import '../Product List/flash_sale.dart';
+import '../Provider/product_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -52,10 +68,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: const Icon(
           Icons.menu,
+          color: AppColor.mainColor,
           size: 30,
         ),
         elevation: 0.0,
-        backgroundColor: AppColor.mainColor,
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,6 +110,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Icon(
               Icons.account_circle,
+              color: AppColor.mainColor,
               size: 32,
             ),
           )
@@ -104,75 +122,21 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                  children: [
-                Container(
-                  height: MediaQuery.of(context).size.height / 2.4,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                    ),
-                    color: AppColor.mainColor,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 110, right: 10, left: 10),
-                    child: AppTextField(
-                      textFieldType: TextFieldType.NAME,
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(IconlyLight.search),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.mic,
-                                  color: Colors.grey,
-                                )
-                              ],
-                            ),
-                          ),
-                          hintText: 'What are you loking for..',
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
-                          )),
-                    ),
-                  ),
-                ),
+              ImageSlideshow(
+                height: 220,
+                width: double.infinity,
+                autoPlayInterval: 3000,
+                isLoop: true,
+                indicatorBackgroundColor: Colors.black,
+                indicatorColor: Colors.pink,
+                onPageChanged: (value){
+                  debugPrint('Page Changed: $value');
+                },
+                children: [
+                  Image.asset('images/br.png',fit: BoxFit.cover,)
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 230,left: 8,right: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                      const Text('Best Collections',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 25),),
-                      SizedBox(height: 10),
-                      HorizontalList(
-                          spacing: 15,
-                          itemCount: 7,
-                          itemBuilder: (context,index){
-                            return Column(
-                              children: [
-                                Text(nameList[index],style: TextStyle(color: colur[index],fontSize: 14,),maxLines: 2,),
-                              ],
-                            );
-                          })
-                    ],
-                  ),
-                )
-              ]),
+                ],
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -185,19 +149,19 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Fresh Vegitables',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        const Text('Flash Sales',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                         Row(
                           children: [
                             Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
-                            Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
+                            Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,),
                           ],
-                        )
+                        ).onTap(()=>FlashCategoryList().launch(context)),
                       ],
                     ),
                     SizedBox(height: 10,),
                     Consumer(
                         builder: (_,ref,watch){
-                          AsyncValue<List<ProductModel>> product= ref.watch(productProvider);
+                          AsyncValue<List<FlashSales>> product= ref.watch(flashProvider);
                           return product.when(
                               data: (details){
                                 return SizedBox(
@@ -211,7 +175,9 @@ class _HomePageState extends State<HomePage> {
                                             Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
                                             Text(details[index].price),
                                             SizedBox(height: 5,),
-                                            Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
@@ -229,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -239,13 +205,13 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Fresh Vegitables',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        const Text('Fresh Vegitables',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                         Row(
                           children: [
                             Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
                             Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
                           ],
-                        )
+                        ).onTap(()=>VagitableCategory().launch(context))
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -265,7 +231,9 @@ class _HomePageState extends State<HomePage> {
                                             Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
                                             Text(details[index].price),
                                             SizedBox(height: 5,),
-                                            Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
@@ -283,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -293,19 +261,19 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Fresh Vegitables',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        const Text('Fresh Fruits',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                         Row(
                           children: [
                             Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
                             Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
                           ],
-                        )
+                        ).onTap(()=>FruitsCategoryList().launch(context))
                       ],
                     ),
                     SizedBox(height: 10,),
                     Consumer(
                         builder: (_,ref,watch){
-                          AsyncValue<List<ProductModel>> product= ref.watch(productProvider);
+                          AsyncValue<List<FruitsModel>> product= ref.watch(fruitsProvider);
                           return product.when(
                               data: (details){
                                 return SizedBox(
@@ -319,7 +287,9 @@ class _HomePageState extends State<HomePage> {
                                             Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
                                             Text(details[index].price),
                                             SizedBox(height: 5,),
-                                            Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
@@ -337,7 +307,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -347,19 +317,19 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Fresh Vegitables',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        const Text('Oil',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                         Row(
                           children: [
                             Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
                             Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
                           ],
-                        )
+                        ).onTap(()=>OilCategoryList().launch(context)),
                       ],
                     ),
                     SizedBox(height: 10,),
                     Consumer(
                         builder: (_,ref,watch){
-                          AsyncValue<List<ProductModel>> product= ref.watch(productProvider);
+                          AsyncValue<List<OilModel>> product= ref.watch(oilProvider);
                           return product.when(
                               data: (details){
                                 return SizedBox(
@@ -370,10 +340,17 @@ class _HomePageState extends State<HomePage> {
                                         return Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
+                                            Container(
+                                                height:100,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                ),
+                                                child: Image.network(details[index].pictureUrl.toString())),
                                             Text(details[index].price),
                                             SizedBox(height: 5,),
-                                            Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
@@ -391,6 +368,176 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Noodles',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        Row(
+                          children: [
+                            Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
+                            Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
+                          ],
+                        ).onTap(()=>NudusCategoryList().launch(context)),
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Consumer(
+                        builder: (_,ref,watch){
+                          AsyncValue<List<NudusModel>> product= ref.watch(noodlesProvider);
+                          return product.when(
+                              data: (details){
+                                return SizedBox(
+                                  child: HorizontalList(
+                                      spacing: 15,
+                                      itemCount: details.length,
+                                      itemBuilder: (_,index){
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
+                                            Text(details[index].price),
+                                            SizedBox(height: 5,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
+                                            const SizedBox(height: 5,),
+                                            Text(details[index].weight, style: const TextStyle(fontSize: 10),)
+                                          ],
+                                        );
+                                      }),
+                                );
+                              },
+                              error: (e,stack){
+                                return Text(e.toString());
+                              },
+                              loading: (){
+                                return Center(child: CircleAvatar(),);
+                              });
+                        })
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Biscuits',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        Row(
+                          children: [
+                            Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
+                            Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
+                          ],
+                        ).onTap(()=>BiscutCategoryList().launch(context))
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Consumer(
+                        builder: (_,ref,watch){
+                          AsyncValue<List<BiscuitsModel>> product= ref.watch(biscuitsProvider);
+                          return product.when(
+                              data: (details){
+                                return SizedBox(
+                                  child: HorizontalList(
+                                      spacing: 15,
+                                      itemCount: details.length,
+                                      itemBuilder: (_,index){
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
+                                            Text(details[index].price),
+                                            SizedBox(height: 5,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
+                                            SizedBox(height: 5,),
+                                            Text(details[index].weight, style: TextStyle(fontSize: 10),)
+                                          ],
+                                        );
+                                      }),
+                                );
+                              },
+                              error: (e,stack){
+                                return Text(e.toString());
+                              },
+                              loading: (){
+                                return Center(child: CircleAvatar(),);
+                              });
+                        })
+                  ],
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Sugar and Salt',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                        Row(
+                          children: [
+                            Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
+                            Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,)
+                          ],
+                        ).onTap(()=>SugarCategoryList().launch(context))
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Consumer(
+                        builder: (_,ref,watch){
+                          AsyncValue<List<SugarModel>> product= ref.watch(sugarProvider);
+                          return product.when(
+                              data: (details){
+                                return SizedBox(
+                                  child: HorizontalList(
+                                      spacing: 15,
+                                      itemCount: details.length,
+                                      itemBuilder: (_,index){
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Image.network(details[index].pictureUrl.toString(),height: 100,width: 100,),
+                                            Text(details[index].price),
+                                            SizedBox(height: 5,),
+                                            SizedBox(
+                                                width: 80,
+                                                child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
+                                            SizedBox(height: 5,),
+                                            Text(details[index].weight, style: TextStyle(fontSize: 10),)
+                                          ],
+                                        );
+                                      }),
+                                );
+                              },
+                              error: (e,stack){
+                                return Text(e.toString());
+                              },
+                              loading: (){
+                                return Center(child: CircleAvatar(),);
+                              });
+                        })
+                  ],
+                ),
+              ),
+              SizedBox(height: 10,),
 
             ],
           ),

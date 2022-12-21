@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:bd_sales/Model/Provider/product_provider.dart';
 import 'package:bd_sales/Model/model_json.dart';
 import 'package:bd_sales/screen/home_page.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -10,6 +8,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../Provider/product_provider.dart';
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
 
@@ -24,7 +24,7 @@ class _AdminPageState extends State<AdminPage> {
   String? _imageUrl;
   Future<void> getImage() async {
     image = await _picker.pickImage(source: ImageSource.gallery);
-    var snapshot = await FirebaseStorage.instance.ref('Student Image').child(DateTime.now().microsecondsSinceEpoch.toString()).putFile(File(image!.path));
+    var snapshot = await FirebaseStorage.instance.ref('Product Image').child(DateTime.now().microsecondsSinceEpoch.toString()).putFile(File(image!.path));
     _imageUrl = await snapshot.ref.getDownloadURL();
     setState(() {});
   }

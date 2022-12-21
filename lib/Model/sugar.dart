@@ -1,17 +1,17 @@
-class ProductModel{
+class SugarModel{
   String ? title;
   dynamic price;
   String ? description;
   String ? pictureUrl;
   dynamic weight;
-  ProductModel({this.title, this.description, this.pictureUrl, this.weight,this.price});
+  SugarModel({this.title, this.description, this.pictureUrl, this.weight,this.price});
 
-  ProductModel.fromJson(dynamic json){
-   title= json['productTitle'];
-   price =json['productPrice'];
-   description=json['productDescription'];
-   pictureUrl=json['pictureUrl'];
-   weight=json['productWeight'];
+  SugarModel.fromJson(dynamic json){
+    title= json['productTitle'];
+    price =json['productPrice'];
+    description=json['productDescription'];
+    pictureUrl=json['pictureUrl'];
+    weight=json['productWeight'];
   }
   Map<String, dynamic> toJson(){
     final map=<String, dynamic>{};
