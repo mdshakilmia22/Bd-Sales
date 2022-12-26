@@ -1,11 +1,11 @@
 import 'package:bd_sales/Model/sugar.dart';
 import 'package:bd_sales/Provider/product_provider.dart';
+import 'package:bd_sales/product_details/sugar_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
 class SugarCategoryList extends StatefulWidget {
   const SugarCategoryList({Key? key}) : super(key: key);
-
   @override
   State<SugarCategoryList> createState() => _SugarCategoryListState();
 }
@@ -47,7 +47,7 @@ class _SugarCategoryListState extends State<SugarCategoryList> {
                               Text(detail[index].weight, style: TextStyle(fontSize: 10),),
                             ],
                           ),
-                        );
+                        ).onTap(()=>SugarDetails(sugarinformation: detail[index]).launch(context));
                       });
                 },
                 error: (e,stack){

@@ -1,5 +1,6 @@
 import 'package:bd_sales/Model/oil_model.dart';
 import 'package:bd_sales/Provider/product_provider.dart';
+import 'package:bd_sales/product_details/oil_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -46,7 +47,7 @@ class _OilCategoryListState extends State<OilCategoryList> {
                               Text(detail[index].weight, style: TextStyle(fontSize: 10),),
                             ],
                           ),
-                        );
+                        ).onTap(()=>OilDetails(oilinformation: detail[index]).launch(context));
                       });
                 },
                 error: (e,stack){

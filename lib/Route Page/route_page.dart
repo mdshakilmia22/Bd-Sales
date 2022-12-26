@@ -1,3 +1,4 @@
+import 'package:bd_sales/all%20product%20category/category_all_model.dart';
 import 'package:bd_sales/screen/category_page.dart';
 import 'package:bd_sales/screen/home_page.dart';
 import 'package:bd_sales/screen/search_page.dart';
@@ -23,7 +24,7 @@ class _RoutePageState extends State<RoutePage> {
   }
   List<Widget> pageRoute=[
     const HomePage(),
-    const CategoryPage(),
+    const CategoryAllList(),
     const SearchPage(),
   ];
 

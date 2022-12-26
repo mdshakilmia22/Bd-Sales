@@ -1,5 +1,6 @@
 import 'package:bd_sales/Model/nudus_model.dart';
 import 'package:bd_sales/Provider/product_provider.dart';
+import 'package:bd_sales/product_details/nuduls_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -47,7 +48,7 @@ class _NudusCategoryListState extends State<NudusCategoryList> {
                               Text(detail[index].weight, style: TextStyle(fontSize: 10),),
                             ],
                           ),
-                        );
+                        ).onTap(()=>NoodlesDetails(nudusinformation: detail[index]).launch(context));
                       });
                 },
                 error: (e,stack){

@@ -19,6 +19,12 @@ import 'package:bd_sales/Product%20List/fruits_page.dart';
 import 'package:bd_sales/Product%20List/nudus_model.dart';
 import 'package:bd_sales/Product%20List/oil_page.dart';
 import 'package:bd_sales/Product%20List/sugar_page.dart';
+import 'package:bd_sales/product_details/biscut_details.dart';
+import 'package:bd_sales/product_details/fruits_details.dart';
+import 'package:bd_sales/product_details/nuduls_details.dart';
+import 'package:bd_sales/product_details/oil_details.dart';
+import 'package:bd_sales/product_details/sugar_details.dart';
+import 'package:bd_sales/product_details/vagitable_details.dart';
 import 'package:bd_sales/screen/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -28,6 +34,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Product List/flash_sale.dart';
 import '../Provider/product_provider.dart';
+import '../product_details/flash_details.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -123,7 +130,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ImageSlideshow(
-                height: 220,
+                height: 250,
                 width: double.infinity,
                 autoPlayInterval: 3000,
                 isLoop: true,
@@ -133,8 +140,14 @@ class _HomePageState extends State<HomePage> {
                   debugPrint('Page Changed: $value');
                 },
                 children: [
-                  Image.asset('images/br.png',fit: BoxFit.cover,)
-
+                  Image.asset('images/one.png',fit: BoxFit.cover,),
+                  Image.asset('images/two.png',fit: BoxFit.cover,),
+                  Image.asset('images/three.png',fit: BoxFit.cover,),
+                  Image.asset('images/five.jpg',fit: BoxFit.cover,),
+                  Image.asset('images/six.jpg',fit: BoxFit.cover,),
+                  Image.asset('images/saven.jpg',fit: BoxFit.cover,),
+                  Image.asset('images/nine.jpg',fit: BoxFit.cover,),
+                  Image.asset('images/eight.png',fit: BoxFit.cover,),
                 ],
               ),
               SizedBox(
@@ -155,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                             Text('View more',style: TextStyle(color: Colors.blue[600],fontSize: 15),),
                             Icon(Icons.arrow_forward_ios,color: Colors.blue[600],size: 15,),
                           ],
-                        ).onTap(()=>FlashCategoryList().launch(context)),
+                        ).onTap(()=>const FlashCategoryList().launch(context)),
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -179,9 +192,9 @@ class _HomePageState extends State<HomePage> {
                                                 width: 80,
                                                 child: Text(details[index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,)),
                                             SizedBox(height: 5,),
-                                            Text(details[index].weight, style: TextStyle(fontSize: 10),)
+                                            Text(details[index].weight, style: const TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>FlashDetails(flashInformation: details[index],).launch(context));
                                       }),
                                 );
                               },
@@ -237,7 +250,7 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>VagitableDetails(vagitableinformation: details[index]).launch(context));
                                       }),
                                 );
                               },
@@ -293,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>FruitsDetails(fruitInformation: details[index]).launch(context));
                                       }),
                                 );
                               },
@@ -354,7 +367,7 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=> OilDetails(oilinformation: details[index]).launch(context));
                                       }),
                                 );
                               },
@@ -410,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                                             const SizedBox(height: 5,),
                                             Text(details[index].weight, style: const TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>NoodlesDetails(nudusinformation: details[index]).launch(context));
                                       }),
                                 );
                               },
@@ -467,7 +480,7 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>BiscutDetails(biscutinformation: details[index]).launch(context));
                                       }),
                                 );
                               },
@@ -523,7 +536,7 @@ class _HomePageState extends State<HomePage> {
                                             SizedBox(height: 5,),
                                             Text(details[index].weight, style: TextStyle(fontSize: 10),)
                                           ],
-                                        );
+                                        ).onTap(()=>SugarDetails(sugarinformation: details[index]).launch(context));
                                       }),
                                 );
                               },

@@ -1,5 +1,6 @@
 import 'package:bd_sales/Model/flash_model.dart';
 import 'package:bd_sales/Provider/product_provider.dart';
+import 'package:bd_sales/product_details/flash_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -17,7 +18,7 @@ class _FlashCategoryListState extends State<FlashCategoryList> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Icon(Icons.arrow_back_ios,size: 28,color: Colors.black,).onTap(()=>Navigator.pop(context)),
-        title: Text('Flash Sales',style: TextStyle(color: Colors.black),),
+        title: const Text('Flash Sales',style: TextStyle(color: Colors.black),),
       ),
       body: Consumer(
           builder: (_,ref,watch){
@@ -47,7 +48,7 @@ class _FlashCategoryListState extends State<FlashCategoryList> {
                           Text(detail[index].weight, style: TextStyle(fontSize: 10),),
                         ],
                         ),
-                      );
+                      ).onTap(()=>FlashDetails(flashInformation: detail[index]).launch(context));
                     });
                 },
                 error: (e,stack){
